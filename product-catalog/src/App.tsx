@@ -1,11 +1,15 @@
 import React from 'react';
-import { SearchScreen } from './screens';
+import { SearchScreen, ProductsScreen } from './screens';
 import { SearchBar } from './components';
+import { Routes, Route, Outlet, Link } from "react-router-dom";
+
 function App() {
   return (
     <div className="App">
-      <SearchScreen />
-      <SearchBar />
+      <Routes>
+        <Route path="/" element={<SearchScreen />} />
+        <Route path="products" element={<ProductsScreen />} />
+      </Routes>
     </div>
   );
 }
