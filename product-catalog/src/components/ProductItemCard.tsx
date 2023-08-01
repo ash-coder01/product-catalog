@@ -1,14 +1,17 @@
 import * as React from 'react';
 import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
+import Stack from '@mui/material/Stack';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { RiStarFill, RiStarLine } from "react-icons/ri";
+import { IProductData } from '../hooks';
 
 interface ExpandMoreProps extends IconButtonProps {
     expand: boolean;
 }
 
-export function ProductItemCard({ manufacturer, price, rating, numrating }: { manufacturer: string, price: BigInteger, rating: BigInteger, numrating: BigInteger }) {
+export function ProductItemCard(props: IProductData) {
     const [isFavColor, setFavColor] = React.useState(true);
     const [isViewProduct, setViewProduct] = React.useState(false);
 
@@ -17,19 +20,20 @@ export function ProductItemCard({ manufacturer, price, rating, numrating }: { ma
     };
 
     return (
-        <div style={{ height: '300px', width: '200px', marginLeft: 50, marginBottom: '40px', }}>
+        <Paper elevation={5} sx={{ height: '333px' }}>
             <button
                 onMouseEnter={() => setViewProduct(true)}
                 onMouseLeave={() => setViewProduct(false)}
                 style={{ border: 'white', padding: 0 }}>
                 <div style={{
                     height: '250px', width: '200px', position: 'relative',
-                    backgroundImage: 'url(https://images.unsplash.com/photo-1604514628550-37477afdf4e3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bW9kZWxzfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60)',
+                    backgroundImage: `url(${props.image})`,
                     backgroundSize: 'cover',
+                    backgroundRepeat: 'no-repeat',
                     backgroundPosition: 'center'
                 }}>
-                    <IconButton sx={{ position: 'relative', marginLeft: 20 }} aria-label="delete" onClick={handleClickFavColor}>
-                        <FavoriteIcon style={{ fill: isFavColor ? "#ffffff" : "#FF0000" }} />
+                    <IconButton sx={{ position: 'relative', marginLeft: 20 }} aria-label="fav" onClick={handleClickFavColor}>
+                        <FavoriteIcon style={{ backgroundBlendMode: 'hard-light', fill: isFavColor ? "grey" : "#ff0000" }} />
                     </IconButton>
                     {isViewProduct &&
                         <div style={{
@@ -42,16 +46,16 @@ export function ProductItemCard({ manufacturer, price, rating, numrating }: { ma
                             color: 'white'
                         }}>View Product</div>}
                 </div>
-                <div style={{ padding: 10, textAlign: 'left' }}>
-                    <Typography variant="body1">
-                        {manufacturer}
+                <div style={{ width: '200px', padding: 10, textAlign: 'left' }}>
+                    <Typography noWrap={true} variant="body1">
+                        {props.title}
                     </Typography>
                     <Typography variant="body2">
-                        Rs. {price} lakh
+                        $ {props.price}
                     </Typography>
-                    <RiStarFill /><RiStarFill /><RiStarFill /><RiStarLine /><RiStarLine />({numrating})
+                    <RiStarFill /><RiStarFill /><RiStarFill /><RiStarLine /><RiStarLine />({props.rating.rate})
                 </div>
             </button>
-        </div>
+        </Paper>
     );
 }

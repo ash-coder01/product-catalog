@@ -9,10 +9,22 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Divider from '@mui/material/Divider';
+import { IProductData } from '../hooks';
 // import { manufacturerArray } from "../data/DisplayCarsArray";
 
 
-export function Filters() {
+export function Filters(props: { data: Array<IProductData> }) {
+
+    // let categories = props.data.filter((category, index) => props.data.indexOf(category) === index)
+    let categories: string[] = [];
+    props.data.forEach(element => {
+        if (!categories.includes(element.category)) {
+            categories.push(element.category);
+        }
+    });
+
+    console.log(categories)
+
     const [openBrandFilter, setOpenBrandFilter] = React.useState(true);
     const [openPriceFilter, setOpenPriceFilter] = React.useState(true);
     const [openStarsFilter, setOpenStarsFilter] = React.useState(true);
@@ -34,14 +46,13 @@ export function Filters() {
                 aria-labelledby="nested-list-subheader"
             >
                 <ListItemButton onClick={handleClickBrandFilter}>
-                    <ListItemText primary="BRAND" />
+                    <ListItemText primary="Categories" />
                     {openBrandFilter ? <ExpandLess /> : <ExpandMore />}
                 </ListItemButton>
                 <Collapse in={openBrandFilter} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
                         <FormGroup sx={{ pl: 4 }}>
-                            <FormControlLabel control={<Checkbox />} label="Mango" />
-                            <FormControlLabel control={<Checkbox />} label="H&M" />
+                            {categories && categories.map((val) => (<FormControlLabel control={<Checkbox />} label={val} />))}
                         </FormGroup>
                     </List>
                 </Collapse>

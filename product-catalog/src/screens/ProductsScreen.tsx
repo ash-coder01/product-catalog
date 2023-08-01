@@ -24,12 +24,12 @@ export function ProductsScreen() {
                     </Typography>
                     <div style={{ display: 'flex', flexDirection: 'row' }}>
                         <div id="filters" >
-                            <Filters />
+                            <Filters {...{ data: data }} />
                         </div>
 
                         <div id="productitems" style={{ display: 'flex', flexWrap: 'wrap' }}>
-                            {fakeCarItemsDisplay.map((fakeCar, index) => {
-                                return <ProductItemCard manufacturer={fakeCarItemsDisplay[index].manufacturer} price={fakeCarItemsDisplay[index].price} rating={fakeCarItemsDisplay[index].rating} numrating={fakeCarItemsDisplay[index].numrating} />
+                            {data.map((productObj, index) => {
+                                return <ProductItemCard {...productObj} />
                             })}
                         </div>
                     </div>
