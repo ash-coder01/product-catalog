@@ -7,7 +7,10 @@ import Drawer from '@mui/material/Drawer';
 import { Filters } from '../components/Filters';
 import { ProductItemCard } from '../components/ProductItemCard'
 import { fakeCarItemsDisplay } from "../data/DisplayCarsArray";
+import { useFetchProductData } from '../hooks';
 export function ProductsScreen() {
+    const data = useFetchProductData();
+    console.log(data);
 
     return (
         <div style={{ height: '100vh', width: '98vw' }}>
