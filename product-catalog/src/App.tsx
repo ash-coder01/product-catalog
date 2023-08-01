@@ -1,8 +1,9 @@
 import React from 'react';
+import { SearchScreen } from './screens';
 function App() {
   return (
     <div className="App">
-      react app
+      <SearchScreen />
     </div>
   );
 }
