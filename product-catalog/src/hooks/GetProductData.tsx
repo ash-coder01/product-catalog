@@ -17,7 +17,7 @@ export const useFetchProductData = () => {
         storeFetch();
     }, [])
     const storeFetch = async () => {
-        const response = await fetch('https://fakestoreapi.com/products?limit=5');
+        const response = await fetch('https://fakestoreapi.com/products?limit=10');
         const jsonData: Array<IProductData> = await response.json();
         setData(jsonData);
     }

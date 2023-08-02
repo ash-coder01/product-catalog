@@ -12,18 +12,32 @@ import Divider from '@mui/material/Divider';
 import { IProductData } from '../hooks';
 // import { manufacturerArray } from "../data/DisplayCarsArray";
 
+type Props = {
+    data: Array<IProductData>
+    onClickCategoryFilter1?: React.MouseEventHandler
+    onClickCategoryFilter2?: React.MouseEventHandler
+    onClickCategoryFilter3?: React.MouseEventHandler
+    onClickPriceFilter1?: React.MouseEventHandler
+    onClickPriceFilter2?: React.MouseEventHandler
+    onClickStarFilter5?: React.MouseEventHandler
+    onClickStarFilter4?: React.MouseEventHandler
+    onClickStarFilter3?: React.MouseEventHandler
+    onClickStarFilter2?: React.MouseEventHandler
+    onClickStarFilter1?: React.MouseEventHandler
+}
 
-export function Filters(props: { data: Array<IProductData> }) {
+// props: { data: Array<IProductData> }
+export function Filters( {data, onClickPriceFilter1, onClickPriceFilter2, onClickCategoryFilter1, onClickCategoryFilter2, onClickCategoryFilter3, onClickStarFilter1, onClickStarFilter2, onClickStarFilter3, onClickStarFilter4, onClickStarFilter5 }: Props) {
 
     // let categories = props.data.filter((category, index) => props.data.indexOf(category) === index)
     let categories: string[] = [];
-    props.data.forEach(element => {
+    data.forEach(element => {
         if (!categories.includes(element.category)) {
             categories.push(element.category);
         }
     });
 
-    console.log(categories)
+    // console.log(categories)
 
     const [openBrandFilter, setOpenBrandFilter] = React.useState(true);
     const [openPriceFilter, setOpenPriceFilter] = React.useState(true);
@@ -52,7 +66,9 @@ export function Filters(props: { data: Array<IProductData> }) {
                 <Collapse in={openBrandFilter} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
                         <FormGroup sx={{ pl: 4 }}>
-                            {categories && categories.map((val) => (<FormControlLabel control={<Checkbox />} label={val} />))}
+                            <FormControlLabel control={<Checkbox onClick={onClickCategoryFilter1} />} label='mens clothing' />
+                            <FormControlLabel control={<Checkbox onClick={onClickCategoryFilter2} />} label='jewelery' />
+                            <FormControlLabel control={<Checkbox onClick={onClickCategoryFilter3} />} label='electronics' />
                         </FormGroup>
                     </List>
                 </Collapse>
@@ -64,8 +80,8 @@ export function Filters(props: { data: Array<IProductData> }) {
                 <Collapse in={openPriceFilter} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
                         <FormGroup sx={{ pl: 4 }}>
-                            <FormControlLabel control={<Checkbox />} label="Under 500" />
-                            <FormControlLabel control={<Checkbox />} label="1000 to 3000" />
+                            <FormControlLabel control={<Checkbox onClick={onClickPriceFilter1} />} label="Under 100" />
+                            <FormControlLabel control={<Checkbox onClick={onClickPriceFilter2} />} label="100 to 1000" />
                         </FormGroup>
                     </List>
                 </Collapse>
@@ -77,11 +93,11 @@ export function Filters(props: { data: Array<IProductData> }) {
                 <Collapse in={openStarsFilter} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
                         <FormGroup sx={{ pl: 4 }}>
-                            <FormControlLabel control={<Checkbox />} label="5 star" />
-                            <FormControlLabel control={<Checkbox />} label="4 star" />
-                            <FormControlLabel control={<Checkbox />} label="3 star" />
-                            <FormControlLabel control={<Checkbox />} label="2 star" />
-                            <FormControlLabel control={<Checkbox />} label="1 star" />
+                            <FormControlLabel control={<Checkbox onClick={onClickStarFilter5} />} label="5 star" />
+                            <FormControlLabel control={<Checkbox onClick={onClickStarFilter4}/>} label="4 star" />
+                            <FormControlLabel control={<Checkbox onClick={onClickStarFilter3}/>} label="3 star" />
+                            <FormControlLabel control={<Checkbox onClick={onClickStarFilter2}/>} label="2 star" />
+                            <FormControlLabel control={<Checkbox onClick={onClickStarFilter1}/>} label="1 star" />
                         </FormGroup>
                     </List>
                 </Collapse>

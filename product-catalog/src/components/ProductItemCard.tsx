@@ -19,12 +19,20 @@ export function ProductItemCard(props: IProductData) {
         setFavColor(!isFavColor);
     };
 
+    const stars: JSX.Element[] = [];
+    for (let i = 1; i <= Math.floor(props.rating.rate); i++) {
+        stars.push(<RiStarFill />);
+    }
+    for (let i = 1; i <= 5-Math.floor(props.rating.rate); i++) {
+        stars.push(<RiStarLine />);
+    }
+
     return (
-        <Paper elevation={5} sx={{ height: '333px' }}>
+        // <Paper elevation={5} sx={{ bgcolor: 'red', marginLeft: '30px', marginBottom: '30px' }}>
             <button
                 onMouseEnter={() => setViewProduct(true)}
                 onMouseLeave={() => setViewProduct(false)}
-                style={{ border: 'white', padding: 0 }}>
+                style={{ border: 'white', padding: 0, backgroundColor: 'white', marginLeft: '30px', marginBottom: '30px', height: '350px', width: '200px'  }}>
                 <div style={{
                     height: '250px', width: '200px', position: 'relative',
                     backgroundImage: `url(${props.image})`,
@@ -48,14 +56,14 @@ export function ProductItemCard(props: IProductData) {
                 </div>
                 <div style={{ width: '200px', padding: 10, textAlign: 'left' }}>
                     <Typography noWrap={true} variant="body1">
-                        {props.title}
+                        {props.title.slice(0,20)}
                     </Typography>
                     <Typography variant="body2">
                         $ {props.price}
                     </Typography>
-                    <RiStarFill /><RiStarFill /><RiStarFill /><RiStarLine /><RiStarLine />({props.rating.rate})
+                    {stars} ({props.rating.count})
                 </div>
             </button>
-        </Paper>
+        // </Paper>
     );
 }
